@@ -120,9 +120,10 @@ void GazeboJointControl::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
     
     // First, check if there is already a thread-safe joint controller for the parent model
     physics::BasePtr jcChild = _parent->GetChild(physics::JointControllerThreadsafe::UniqueName());
+    physics::JointControllerPtr _modelJointController;
     if (!jcChild.get())
     {   // no joint controller loaded yet, so create a new one
-        physics::JointControllerPtr _modelJointController = _parent->GetJointController();
+        _modelJointController = _parent->GetJointController();
         if (!_modelJointController.get())
         {
             ROS_ERROR("Cannot load GazeboJointControl if no default JointController is set for the model");
